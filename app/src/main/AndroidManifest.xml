@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.samuelkim.broadcasting">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- <uses-permission android:name="com.clover.remote.terminal.permission.REMOTE_TERMINAL"/> -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="clover.permission.ACTION_PAY"/>
+
+    <!-- Printing receipt image -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".PrintService" />
+    <!--</activity>-->
+
+        <activity
+            android:name=".PrintJobsTestActivity"
+            android:exported="true"
+            android:label="hello">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="clover.intent.action.MERCHANT_TENDER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+
+            <!--<intent-filter>-->
+                <!--<action android:name="clover.intent.action.CUSTOMER_TENDER" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <receiver android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="com.clover.sdk.app.intent.action.APP_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ConsumReceiver">
+            <intent-filter android:priority="100">
+                <action android:name="clover.intent.action.ACTIVE_REGISTER_ORDER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".ChangePrice">
+            <intent-filter>
+                <action android:name="clover.intent.action.V1_ACTIVE_PAY_ORDER" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
